@@ -31,8 +31,6 @@ class UserInfo(models.Model):
     def save(self, *args, **kwargs):
         try:
             us=UserInfo.objects.get(
-                company=self.company,
-                full_name=self.full_name,
                 user_id=self.user_id
             )
             us.delete()
