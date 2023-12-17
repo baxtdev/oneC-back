@@ -44,20 +44,22 @@ class ProcessDataAPIView(views.APIView):
     def post(self, request, *args, **kwargs):
         data_array = request.data
         if data_array:
+            count=0
             try:
                 for data in data_array:
+                    count+=1
                     serializer = UserInfoSerializer(data=data)
-                    try:
-                        if serializer.is_valid():
-                            serializer.save()
-                            return Response({'objects': f'{data_array}'},201)
-                        else:
-                            return Response ({"Error detail":"This object is don't created"},400)
-                    except Exception as e:
-                        print(f"Error detail: {e}")
-                        return Response ({"Error detail":f"{e}"},400)
+                    if serializer.is_valid():
+                        serializer.save()
+                    else:
+                        if count>1:
+                            return Response ({"Error detail":f"object is don't created bad request in array[{count}]"},400)    
 
-            except Exception as error: 
-                return Response({"Error detail":f"{error}"},400)
+                        return Response ({"Error detail":f"objects is don't created"},400)    
+                return Response({'objects': f'{data_array}'},201)
+                        
+            except Exception as e:
+                return Response ({"Error detail":f"{e}"},400)
+
         else:
             return Response({"Error detail":"request array is null"},400)

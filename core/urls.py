@@ -30,7 +30,7 @@ router.register('userINFO',UserInfoAPIViewSet)
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/v1/',include(router.urls)),
-    path('api/v1/userGET/<int:user_id>',UserInfoGETapiVew.as_view(),name='Get info User'),
+    path('api/v1/userGET/<str:user_id>',UserInfoGETapiVew.as_view(),name='Get info User'),
     path('api/v1/userSET/',ProcessDataAPIView.as_view(),name="Set Data Array")
 ]
 

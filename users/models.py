@@ -14,7 +14,8 @@ class UserInfo(models.Model):
     full_name = models.CharField(
            max_length=250
     )
-    user_id = models.BigIntegerField(
+    user_id = models.CharField(
+        max_length=250
     )
     credit = models.FloatField()
 
@@ -23,7 +24,7 @@ class UserInfo(models.Model):
         db_table = 'info'
         managed = True
         verbose_name = 'User Info'
-        verbose_name_plural = 'Users Ifos'
+        verbose_name_plural = 'Users Info'
 
     def __str__(self) -> str:
         return self.full_name    
